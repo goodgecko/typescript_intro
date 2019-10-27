@@ -21429,38 +21429,60 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __importStar(__webpack_require__(90));
-window.onload = function () {
-    //let canvas = document.getElementById('demoCanvas');
-    // The application will create a renderer using WebGL, if possible,
-    // with a fallback to a canvas render. It will also setup the ticker
-    // and the root stage PIXI.Container
-    var app = new PIXI.Application({
-        width: 400, height: 400, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1
-    });
-    // The application will create a canvas element for you that you
-    // can then insert into the DOM
-    //canvas.appendChild(app.view);
-    var displayDiv = document.querySelector('#display');
-    displayDiv.appendChild(app.view);
-    //const stage = new PIXI.Container();
-    // load the texture we need
-    app.loader.add('gecko', 'assets/gecko.png').load(function (loader, resources) {
-        // This creates a texture from a 'gecko.png' image
+var GameManager = /** @class */ (function () {
+    /**
+     * code entry point, it is triggered by the window.onload event found at the bottom of this class
+     */
+    function GameManager() {
+        this.createPIXI();
+        this.loadAssets();
+    }
+    /**
+     * simply creates the PIXI
+     */
+    GameManager.prototype.createPIXI = function () {
+        this.app = new PIXI.Application({ width: 400, height: 400, backgroundColor: 0xFFFFFF });
+        document.body.appendChild(this.app.view);
+    };
+    /**
+     * loading the gecko.png
+     */
+    GameManager.prototype.loadAssets = function () {
+        this.app.loader.add('gecko', 'assets/gecko.png');
+        this.app.loader.on("complete", this.onLoadComplete.bind(this));
+        this.app.loader.load();
+    };
+    /**
+     *
+     * @param loader loader provided by the PIXI load event, useful for cleaning up any events attached to loader
+     * @param resources resources provided by the PIXI load event, we use this to extract loaded items
+     */
+    GameManager.prototype.onLoadComplete = function (loader, resources) {
+        //create a sprite from a 'gecko.png' image
         var gecko = new PIXI.Sprite(resources.gecko.texture);
-        // Setup the position of the gecko
-        gecko.x = app.renderer.width / 2;
-        gecko.y = app.renderer.height / 2;
-        // Rotate around the center
+        //position the gecko in the centre of the screen
+        gecko.x = this.app.renderer.width / 2;
+        gecko.y = this.app.renderer.height / 2;
+        //add an anchor so the rotate pivots the centre of the image
         gecko.anchor.x = 0.5;
         gecko.anchor.y = 0.5;
-        // Add the gecko to the scene we are building
-        app.stage.addChild(gecko);
-        // Listen for frame updates
-        app.ticker.add(function () {
-            // each frame we spin the gecko around a bit
-            gecko.rotation += 0.01;
+        //add the gecko to the screen
+        this.app.stage.addChild(gecko);
+        //listen for frame updates
+        this.app.ticker.add(function () {
+            //each frame spin the gecko around a tiny bit
+            gecko.rotation -= 0.01;
         });
-    });
+    };
+    return GameManager;
+}());
+exports.GameManager = GameManager;
+/**
+ * on the window event create the GameManager class
+ * some people like to add this into a seperate .js file
+ */
+window.onload = function () {
+    new GameManager();
 };
 
 
