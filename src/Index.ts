@@ -10,28 +10,12 @@ export class GameManager{
      * code entry point, it is triggered by the window.onload event found at the bottom of this class
      */
     public constructor(){
-        this.createPIXI();
-        this.loadAssets();
-    }
-
-
-    /**
-     * simply creates the PIXI
-     */
-    private createPIXI():void{
         this.app = new PIXI.Application({ width: 400, height: 400, backgroundColor: 0xFFFFFF });
-
         document.body.appendChild(this.app.view);
-    }
 
-
-    /**
-     * loading the gecko.png
-     */
-    private loadAssets():void{
-        this.app.loader.add('gecko', 'assets/gecko.png');
-        this.app.loader.on("complete", this.onLoadComplete.bind(this) );
-        this.app.loader.load();
+        PIXI.Loader.shared.add('gecko', 'assets/gecko.png');
+        PIXI.Loader.shared.once('complete', this.onLoadComplete.bind(this) );
+        PIXI.Loader.shared.load();
     }
 
 
@@ -40,9 +24,9 @@ export class GameManager{
      * @param loader loader provided by the PIXI load event, useful for cleaning up any events attached to loader
      * @param resources resources provided by the PIXI load event, we use this to extract loaded items
      */
-    private onLoadComplete( loader:PIXI.loaders.Loader, resources:PIXI.loaders.ResourceDictionary ):void{
+    private onLoadComplete( loader: PIXI.Loader, resources: PIXI.LoaderResource){
         //create a sprite from a 'gecko.png' image
-        let gecko:PIXI.Sprite = new PIXI.Sprite(resources.gecko.texture);
+        let gecko:PIXI.Sprite = new PIXI.Sprite(resources["gecko"].texture);
 
         //position the gecko in the centre of the screen
         gecko.x = this.app.renderer.width / 2;

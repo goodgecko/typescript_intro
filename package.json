@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/pixi.js": "^4.8.8",
-    "pixi.js": "^4.8.8"
+    "pixi.js": "^5.2.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",
