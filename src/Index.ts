@@ -28,11 +28,11 @@ export class GameManager{
         //create a sprite from a 'gecko.png' image
         let gecko:PIXI.Sprite = new PIXI.Sprite(resources["gecko"].texture);
 
-        //position the gecko in the centre of the screen
+        //position the gecko in the center of the screen
         gecko.x = this.app.renderer.width / 2;
         gecko.y = this.app.renderer.height / 2;
 
-        //add an anchor so the rotate pivots the centre of the image
+        //add an anchor so the rotate pivots the center of the image
         gecko.anchor.x = 0.5;
         gecko.anchor.y = 0.5;
 
