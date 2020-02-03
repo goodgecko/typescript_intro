@@ -2,19 +2,29 @@
 
 Make sure you install the latest version of **[https://node.js](https://nodejs.org)**.
 
-Github repositories do not include the "node_module" folder so in the terminal you need to run:
+Github repositories do not include the "node_module" dependancy folders, so in the Terminal run:
 
-**npm i**
+**npm i**   
 
-And then to build the game by running:
+And then to build the game.js, in the Terminal run:
 
 **npm run build**
 
-To run the game locally run:
+Webpack will then compile the Typescript into Javascript and bundle all the files into a single dist/game.js  
+
+> **Note:** It might give you a warning saying the .js file is large. This is just a warning because it combines your game code plus the pixi.js and all of its dependencies, in the final release you can swap the game.js in the index.html with game.min.js to reduce the file size.
+
+In the Terminal run:
+
+**cd dist**
+
+Your Terminal is pointing to the dist/ folder you can run:
 
 **http-server**
 
-And select the **/dist** folder.
+Copy the link provided in the Terminal, in my case its: [http://127.0.0.1:8080](http://127.0.0.1:8080)  
+
+Hopefully your game will load. If not, check the Chrome debugger, chances are it will show you what went wrong.  
 
 
 
@@ -38,13 +48,12 @@ Setting up your first PIXIJS / Typescript project can be a little daunting, this
 9.  [Folder Structure](#structure)
 10.  [Quick Typescript Example](#quick_typescript)
 11.  [Running The Game](#run_game)
-12.  [Demo](#demo)
 
 
 
 
 
-## Prerequisites
+## <a id="prerequisites"></a>Prerequisites(#package)
 
 - Install the latest version of **[https://node.js](https://nodejs.org)**  
 - Install a code editor, I recommend Visual Studio Code **[https://code.visualstudio.com](https://code.visualstudio.com/)**  
@@ -52,7 +61,7 @@ Setting up your first PIXIJS / Typescript project can be a little daunting, this
 
 
 
-## Create Package.json
+## <a id="package"></a>Create Package.json
 
 Create a new folder and open it in Visual Studio Code.  
 In Visual Studio Code select **"View"** from the top menu system and click **"Terminal [^`]"**
@@ -84,7 +93,7 @@ It should automatically create a package.json file in your project folder that l
 
 
 
-## Install Pixi
+## <a id="pixi"></a>Install Pixi
 
 In the terminal run:
 
@@ -100,7 +109,7 @@ This will automatically create a "node_module" folder. Node will store all of th
 
 
 
-## Install TypeScript
+## <a id="typescript"></a>Install TypeScript
 
 In the terminal run:
 
@@ -112,7 +121,7 @@ The **--save-dev** lets the project know this library is only needed for develop
 
 
 
-## Configuring TypeScript
+## <a id="typescript_config"></a>Configuring TypeScript
 
 In the terminal run:
 
@@ -137,7 +146,7 @@ The only option we have to change right now is **- rootDir**. This is because ou
 
 
 
-## Install Webpack
+## <a id="webpack"></a>Install Webpack
 
 In the terminal run:
 
@@ -157,7 +166,7 @@ Webpack has many great plugins but for now we only need two:
 
 
 
-## Configuring Webpack
+## <a id="webpack_config"></a>Configuring Webpack
 
 In the root project folder create a file called **webpack.config.js**  
 Webpack code is a little tricky and describing this code is probably a tutorial in its owns right but we basically want to load the two plugins and tell it where the source files are and where we want them to export too.  
@@ -243,7 +252,7 @@ In the package.json file, within the "scripts" node you can add shortcut to trig
 
 
 
-## Install http-server
+## <a id="httpserver"></a>Install http-server
 
 Modern browsers won't allow you to access files directly from your device, during development we use a virtual server so we can run games locally In the terminal run:
 
@@ -253,7 +262,7 @@ Modern browsers won't allow you to access files directly from your device, durin
 
 
 
-## Folder Structure
+## <a id="structure"></a>Folder Structure
 
 Now all of the libraries are installed your package.json should look something like this:  
 **package.json**
@@ -312,7 +321,7 @@ Your project folder should look like this:
 
 
 
-## Quick Typescript Example
+## <a id="quick_typescript"></a>Quick Typescript Example
 
 Phew, this tutorial is getting long, lets just create a rotating image:  
 **src/index.ts**
@@ -364,27 +373,27 @@ Phew, this tutorial is getting long, lets just create a rotating image:
 
 
 
-## Running The Game
+## <a id="run_game"></a>Running The Game
 
 With all of that done the only thing left for us to do is launch the game. In the Terminal run:
 
-    npm run build
+**npm run build**
 
-This should tell the webpack to compile the Typescript into Javascript and bundle all the files into a new dist/game.js  
+Webpack will then compile the Typescript into Javascript and bundle all the files into a single dist/game.js  
 
-> **Note:** It might give you a warning saying the .js file is large but that is because it is your game code plus the pixi.js and all of its dependencies, in the final release you can swap the game.js in the index.html with game.min.js to reduce the file size
+> **Note:** It might give you a warning saying the .js file is large. This is just a warning because it combines your game code plus the pixi.js and all of its dependencies, in the final release you can swap the game.js in the index.html with game.min.js to reduce the file size.
 
 In the Terminal run:
 
-    cd dist
+**cd dist**
 
-So your Terminal is now pointing to the dist/ folder  
-And run:
+Your Terminal is pointing to the dist/ folder you can run:
 
-    http-server
+**http-server**
 
-And now copy the local link it provides, in my case its: [http://127.0.0.1:8080](http://127.0.0.1:8080)  
-Hopefully your game will load. If not, check the Chrome debugger, chances are it will show you what went wrong.  
+Copy the link provided in the Terminal, in my case its: [http://127.0.0.1:8080](http://127.0.0.1:8080)  
+
+Hopefully your game will load. If not, check the Chrome debugger, chances are it will show you what went wrong. 
 
 > **Note:** During development I find it really helpful to use the game.js, so you can see errors plainly in the Chrome debugger. But for your final release its better to change the script link in the index.html to game.min.js, its the same code but compressed and will be a far smaller file size.
 
