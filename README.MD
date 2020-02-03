@@ -4,11 +4,11 @@ Make sure you install the latest version of **[https://node.js](https://nodejs.o
 
 Github repositories do not include the "node_module" dependancy folders, so in the Terminal run:
 
-**npm i**   
+    npm i   
 
 And then to build the game.js, in the Terminal run:
 
-**npm run build**
+    npm run build
 
 Webpack will then compile the Typescript into Javascript and bundle all the files into a single dist/game.js  
 
@@ -16,11 +16,11 @@ Webpack will then compile the Typescript into Javascript and bundle all the file
 
 In the Terminal run:
 
-**cd dist**
+    cd dist
 
 Your Terminal is pointing to the dist/ folder you can run:
 
-**http-server**
+    http-server
 
 Copy the link provided in the Terminal, in my case its: [http://127.0.0.1:8080](http://127.0.0.1:8080)  
 
