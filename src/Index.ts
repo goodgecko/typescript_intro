@@ -5,6 +5,7 @@ export class GameManager{
 
     private app:PIXI.Application;
 
+    private gecko:PIXI.Sprite;
 
     /**
      * code entry point, it is triggered by the window.onload event found at the bottom of this class
@@ -16,6 +17,9 @@ export class GameManager{
         PIXI.Loader.shared.add('gecko', 'assets/gecko.png');
         PIXI.Loader.shared.once('complete', this.onLoadComplete.bind(this) );
         PIXI.Loader.shared.load();
+
+        window.addEventListener('resize', this.resize.bind(this));
+        this.resize();
     }
 
 
@@ -26,24 +30,33 @@ export class GameManager{
      */
     private onLoadComplete( loader: PIXI.Loader, resources: PIXI.LoaderResource){
         //create a sprite from a 'gecko.png' image
-        let gecko:PIXI.Sprite = new PIXI.Sprite(resources["gecko"].texture);
+        this.gecko = new PIXI.Sprite(resources["gecko"].texture);
 
         //position the gecko in the center of the screen
-        gecko.x = this.app.renderer.width / 2;
-        gecko.y = this.app.renderer.height / 2;
+        this.gecko.x = this.app.renderer.width / 2;
+        this.gecko.y = this.app.renderer.height / 2;
 
         //add an anchor so the rotate pivots the center of the image
-        gecko.anchor.x = 0.5;
-        gecko.anchor.y = 0.5;
+        this.gecko.anchor.x = 0.5;
+        this.gecko.anchor.y = 0.5;
 
         //add the gecko to the screen
-        this.app.stage.addChild(gecko);
+        this.app.stage.addChild(this.gecko);
 
         //listen for frame updates
         this.app.ticker.add(() => {
             //each frame spin the gecko around a tiny bit
-            gecko.rotation -= 0.01;
+            this.gecko.rotation -= 0.01;
         });
+    }
+
+
+    // Resize function window
+    private resize() {
+        this.app.renderer.resize(window.innerWidth, window.innerHeight);
+
+        this.gecko.x = this.app.renderer.width / 2;
+        this.gecko.y = this.app.renderer.height / 2;
     }
 }
 
